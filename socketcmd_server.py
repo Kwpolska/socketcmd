@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # SocketCmd Server (asyncio)
-# Copyright © 2016, Chris Warrick.
+# Copyright © 2016-2017, Chris Warrick.
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without

@@ -47,7 +47,7 @@ Any other command responds with `400 BAD COMMAND`. Commands are case sensitive.
 License
 -------
 
-Copyright © 2016, Chris Warrick.
+Copyright © 2016-2017, Chris Warrick.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
