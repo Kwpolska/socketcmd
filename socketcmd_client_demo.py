@@ -40,6 +40,7 @@ def send(s, data):
     s.sendall(data)
     print(s.recv(4096).decode('utf-8'), end='')
 
+
 try:
     fname = sys.argv[1]
 except IndexError:
