@@ -73,21 +73,20 @@ class SocketCmdProtocol(asyncio.Protocol):
         self.transport.write(line)
         l.info("Response sent: {0}".format(line))
 
-    def process_data(self, data, force_cmd=False):
+    async def process_data(self, data, force_cmd=False):
         data = data.decode('utf-8')
         self.waiting_data += data
 
         if '\n' in self.waiting_data or force_cmd:
             data = self.waiting_data
             self.waiting_data = ''
-            yield from self.handle_lines(data)
+            await self.handle_lines(data)
 
     def eof_received(self):
         """End the connection."""
         asyncio.ensure_future(self.handle_lines(self.waiting_data))
 
-    @asyncio.coroutine
-    def handle_lines(self, data):
+    async def handle_lines(self, data):
         """Handle lines of data."""
         for line in data.split("\n"):
             try:
@@ -98,7 +97,7 @@ class SocketCmdProtocol(asyncio.Protocol):
 
             # Handle different request types.
             if command == "sleep":
-                yield from asyncio.sleep(5)
+                await asyncio.sleep(5)
                 self.output(b"005 ZZZ\n")
                 return
             elif command == "hi":
@@ -114,8 +113,8 @@ class SocketCmdProtocol(asyncio.Protocol):
                     return
 
                 c = asyncio.create_subprocess_exec(arg)
-                p = yield from c
-                exit_code = yield from p.wait()
+                p = await c
+                exit_code = await p.wait()
                 if exit_code == 0:
                     self.output("210 OK {0}\n".format(arg).encode('utf-8'))
                     return
@@ -126,8 +125,8 @@ class SocketCmdProtocol(asyncio.Protocol):
             elif command == 'date':
                 c = asyncio.create_subprocess_exec('date', '+%s',
                                                    stdout=asyncio.subprocess.PIPE)
-                p = yield from c
-                out, err = yield from p.communicate()
+                p = await c
+                out, err = await p.communicate()
                 self.output("220 DATE {0}".format(out.decode('utf-8')).encode('utf-8'))
             else:
                 self.output(b"400 BAD COMMAND\n")

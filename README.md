@@ -13,6 +13,9 @@ The real project runs on my web server and communicates with a Django web
 application. SocketCmd is meant to show how a socket server that runs
 subprocesses looks when written in asyncio.
 
+The server works with Python 3.5 or newer. If you need 3.4 support, try the
+`py34-last` tag.
+
 Usage
 -----
 
