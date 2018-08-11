@@ -29,7 +29,7 @@ time.sleep(1)  # initialization
 
 try:
     client = subprocess.run([sys.executable, 'socketcmd_client_demo.py', 'sc.sock'],
-                            capture_output=True, timeout=15, encoding='utf-8')
+                            stdout=subprocess.PIPE, timeout=15, encoding='utf-8')
 except subprocess.TimeoutExpired as e:
     print("\033[1;31mFAIL (TIMEOUT)\033[0m")
     print(e)
