@@ -13,8 +13,8 @@ matrix:
     before_install:
     - brew update
     - brew upgrade python
-    - python3 -m venv venv
-    - source venv/bin/activate
+    - python3 -m venv /tmp/venv
+    - source /tmp/venv/bin/activate
     - pip install --upgrade-strategy eager -U flake8
 
 install:
