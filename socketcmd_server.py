@@ -66,7 +66,7 @@ class SocketCmdProtocol(asyncio.Protocol):
 
     def data_received(self, data):
         """Handle requests."""
-        asyncio.async(self.process_data(data))
+        asyncio.ensure_future(self.process_data(data))
 
     def output(self, line):
         """Write a line to the transport and stdout."""
@@ -84,7 +84,7 @@ class SocketCmdProtocol(asyncio.Protocol):
 
     def eof_received(self):
         """End the connection."""
-        asyncio.async(self.handle_lines(self.waiting_data))
+        asyncio.ensure_future(self.handle_lines(self.waiting_data))
 
     @asyncio.coroutine
     def handle_lines(self, data):
